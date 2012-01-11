@@ -1,3 +1,15 @@
+# == Class: passenger::packages
+#
+# Description of passenger::packages
+#
+# === Parameters:
+#
+# === Actions:
+#
+# === Requires:
+#
+# === Sample Usage:
+#
 class passenger::packages {
   package {
     "rubygem-passenger": 

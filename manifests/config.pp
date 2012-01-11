@@ -1,3 +1,15 @@
+# == Class: passenger::config
+#
+# Description of passenger::config
+#
+# === Parameters:
+#
+# === Actions:
+#
+# === Requires:
+#
+# === Sample Usage:
+#
 class passenger::config {
   file {
     'passenger.conf':
