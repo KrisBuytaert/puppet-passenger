@@ -1,0 +1,3 @@
+LoadModule passenger_module <%= scope.lookupvar('ruby::lib_dir') %>/gems/<%= scope.lookupvar('ruby::version') %>/gems/passenger-<%= scope.lookupvar('passenger::version') %>/ext/apache2/mod_passenger.so
+PassengerRoot <%= scope.lookupvar('ruby::lib_dir') %>/gems/<%= scope.lookupvar('ruby::version') %>/gems/passenger-<%= scope.lookupvar('passenger::version') %>
+PassengerRuby <%= scope.lookupvar('ruby::bin_dir') %>/ruby
