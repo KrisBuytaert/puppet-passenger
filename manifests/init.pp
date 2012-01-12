@@ -1,4 +1,3 @@
-import 'classes/*'
 
 class passenger (
 	$version = '3.0.8'
