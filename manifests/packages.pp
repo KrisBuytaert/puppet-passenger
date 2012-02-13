@@ -19,8 +19,6 @@ class passenger::packages {
 
   require passenger::params
 
-  notify { "debug required_packages: ${passenger::params::required_packages}": }
-
   package { $passenger::params::package:
     ensure   => 'installed',
     require  => Package[$passenger::params::required_packages],

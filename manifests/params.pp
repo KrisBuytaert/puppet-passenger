@@ -11,11 +11,46 @@
 # === Sample Usage:
 #
 class passenger::params (
-  $packages = undef,
-  $configpath = undef,
-  $version = undef,
-  $template = 'passenger/passenger.conf.erb',
+  $packages              = undef,
+  $configpath            = undef,
+  $version               = undef,
+  $template              = 'passenger/passenger.conf.erb',
+  $passenger_root        = '',
+  $passenger_ruby        = '',
+  $app_root              = '',
+  $spawn_method          = '',
+  $use_global_queue      = true,
+  $passenger_enabled     = true,
+  $temp_dir              = '',
+  $upload_buffer_dir     = '',
+  $restart_dir           = '',
+  $buffer_response       = true,
+  $user_switching        = true,
+  $user                  = '',
+  $group                 = '',
+  $default_user          = '',
+  $default_group         = '',
+  $friendly_error_pages  = true,
+  $max_pool_size         = '',
+  $min_instances         = '',
+  $max_instances_per_app = '',
+  $pool_idle_time        = '',
+  $max_requests          = '',
+  $stat_throttle_rate    = '',
+  $pre_start             = '',
+  $high_performance      = false,
+  $log_level             = '',
+  $debug_logfile         = '',
+  $rails_autodetect      = true,
+  $rails_baseuri         = [],
+  $rails_env             = [],
+  $rack_autodetect       = true,
+  $rack_baseuri          = [],
+  $rack_env              = [],
 ){
+
+## @todo: high_performance -> no mod_rewrite!
+
   ## Copy paste snippets:
   # template("${module_name}/template.erb")
   # source => "puppet:///modules/${module_name}/file"
@@ -29,18 +64,15 @@ class passenger::params (
     }
   }
 
-
-
-
   ## Apache integration
-  if defined('::apache') {
-    require apache
+  if defined('::apache::module') {
+    require apache::module
     notify {'passsenger-detect-apache-module':
-      message => "O Hi! I detected that you using a (pluggeable?) apache module ($apache::modulename). Trying to work with it!"
+      message => "O Hi! I detected that you using a (pluggeable?) apache module (${apache::module::name}). Trying to work with it!"
     }
-    case $apache::modulename {
+    case $apache::module::name {
       default, undef: {
-        fail("The selected module (${apache::modulename}) is not supported by this module.")
+        fail("The selected module (${apache::module::name}) is not supported by this module.")
       }
       'inuits-puppet-apache': {
         require apache::params
@@ -57,6 +89,8 @@ class passenger::params (
       /(?i:centos|redhat)/ => "/etc/httpd/conf.d/passenger.conf",
       /(?i:debian|ubuntu)/ => "/etc/apache2/conf.d/passenger.conf",
     }
+    $required_packages = [ $packages ]
+    $notify_services = [ 'apache' ]
   }
 
 }

@@ -1,12 +1,13 @@
 # = Class: passenger::setup
 #
-# Description of passenger::setup
-#
-# == Parameters:
-#
-# $param::   Description of parameter
+# Setup / configure passenger
 #
 # == Actions:
+#
+# Puts the passenger configuration file in place.
+# This does NOT replace the configuration file that was packages,
+# but rathers adds a configuration file for configuration.
+#
 #
 # == Requires:
 #
@@ -20,7 +21,17 @@ class passenger::setup {
   require passenger::params
   require passenger::packages
 
+  $config_file = $passenger::params::conf_file
+  $template = $passenger::params::template
+  $notify_services = $passenger::params::notify_services
   ## @todo: Put the passenger.conf in his place
-  
+
+  file {$config_file:
+    ensure  => 'present',
+    content => template($template),
+    mode    => '0644',
+    notify  => $notify_services,
+  }
+
 }
 
