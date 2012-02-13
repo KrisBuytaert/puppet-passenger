@@ -40,13 +40,14 @@ class passenger::params (
   $pre_start             = '',
   $high_performance      = false,
   $log_level             = '',
-  $debug_logfile         = '',
-  $rails_autodetect      = true,
-  $rails_baseuri         = [],
-  $rails_env             = [],
-  $rack_autodetect       = true,
-  $rack_baseuri          = [],
-  $rack_env              = [],
+  $debug_logfile         = ''
+#  $rails_autodetect      = true,             ## @todo: Having some issues
+#                                             ## with arrays and detecting them.
+#  $rails_baseuri         = [],
+#  $rails_env             = [],
+#  $rack_autodetect       = true,
+#  $rack_baseuri          = [],
+#  $rack_env              = [],
 ){
 
 ## @todo: high_performance -> no mod_rewrite!
@@ -67,12 +68,12 @@ class passenger::params (
   ## Apache integration
   if defined('::apache::module') {
     require apache::module
-    notify {'passsenger-detect-apache-module':
-      message => "O Hi! I detected that you using a (pluggeable?) apache module (${apache::module::name}). Trying to work with it!"
+    notify {'passenger-detect-apache-module':
+      message => "O Hi! I detected that you using a (pluggeable?) apache module (${apache::module::id}). Trying to work with it!"
     }
-    case $apache::module::name {
+    case $apache::module::id {
       default, undef: {
-        fail("The selected module (${apache::module::name}) is not supported by this module.")
+        fail("The selected module (${apache::module::id}) is not supported by this module.")
       }
       'inuits-puppet-apache': {
         require apache::params
@@ -86,8 +87,8 @@ class passenger::params (
   else {
     $conf_file = $::operatingsystem ? {
       /(?i:archlinux)/     => '/etc/httpd/conf/extra/passenger.conf',
-      /(?i:centos|redhat)/ => "/etc/httpd/conf.d/passenger.conf",
-      /(?i:debian|ubuntu)/ => "/etc/apache2/conf.d/passenger.conf",
+      /(?i:centos|redhat)/ => '/etc/httpd/conf.d/passenger.conf',
+      /(?i:debian|ubuntu)/ => '/etc/apache2/conf.d/passenger.conf',
     }
     $required_packages = [ $packages ]
     $notify_services = [ 'apache' ]

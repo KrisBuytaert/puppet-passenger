@@ -19,7 +19,6 @@ class passenger::setup {
   # source => "puppet:///modules/${module_name}/file"
 
   require passenger::params
-  require passenger::packages
 
   $config_file = $passenger::params::conf_file
   $template = $passenger::params::template
@@ -30,7 +29,7 @@ class passenger::setup {
     ensure  => 'present',
     content => template($template),
     mode    => '0644',
-    notify  => $notify_services,
+    notify  => Service[$notify_services],
   }
 
 }

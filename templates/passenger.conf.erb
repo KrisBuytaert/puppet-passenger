@@ -1,7 +1,7 @@
 <%
   def onoff (var)
     return var if var.is_a?(String)
-    if var.is_a?(Boolean)
+    if var == true or var == false
       return "on" if var
       return "off"
     end
@@ -96,36 +96,3 @@
 <% if scope.lookupvar('passenger::params::rails_autodetect') != '' -%>
   RailsAutoDetect <%= onoff(scope.lookupvar('passenger::params::rails_autodetect')) %>
 <% end -%>
-<% if scope.lookupvar('passenger::params::rails_baseuri') != ''
-    rails_baseuri = [ scope.lookupvar('passenger::params::rails_baseuri') ] unless scope.lookupvar('passenger::params::rails_baseuri').is_a?(Array)
-    rails_baseuri.each do |item|
--%>
-  RailsBaseUri <%= item %>
-<%  end -%>
-<% end -%>
-<% if scope.lookupvar('passenger::params::rails_env') != ''
-    rails_env = [ scope.lookupvar('passenger::params::rails_env') ] unless scope.lookupvar('passenger::params::rails_env').is_a?(Array)
-    rails_env.each do |item|
--%>
-  RailsEnv <%= item %>
-<%  end -%>
-<% end -%>
-
-<% if scope.lookupvar('passenger::params::rack_autodetect') != '' -%>
-  RackAutoDetect <%= onoff(scope.lookupvar('passenger::params::rack_autodetect')) %>
-<% end -%>
-<% if scope.lookupvar('passenger::params::rack_baseuri') != ''
-    rack_baseuri = [ scope.lookupvar('passenger::params::rack_baseuri') ] unless scope.lookupvar('passenger::params::rack_baseuri').is_a?(Array)
-    rack_baseuri.each do |item|
--%>
-  RackBaseUri <%= item %>
-<%  end -%>
-<% end -%>
-<% if scope.lookupvar('passenger::params::rack_env') != ''
-    rack_env = [ scope.lookupvar('passenger::params::rack_env') ] unless scope.lookupvar('passenger::params::rack_env').is_a?(Array)
-    rack_env.each do |item|
--%>
-  RackEnv <%= item %>
-<%  end -%>
-<% end -%>
-

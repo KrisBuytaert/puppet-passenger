@@ -2,7 +2,7 @@
 #
 class passenger::module {
 
-  $name    = 'unifiedpost-puppet-passenger'
+  $id = 'unifiedpost-puppet-passenger'
   $version = '0.1'
 
 }
