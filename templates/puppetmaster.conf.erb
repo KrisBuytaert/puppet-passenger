@@ -4,8 +4,8 @@ Listen 8140
     SSLEngine on
     SSLCipherSuite SSLv2:-LOW:-EXPORT:RC4+RSA
     # Ugly Hack to set the hostname correct hardcoded :(  kb 20120130 
-    SSLCertificateFile      /var/lib/puppet-server/ssl/certs/puppetmaster01.dev.dc01.uni.pem
-    SSLCertificateKeyFile   /var/lib/puppet-server/ssl/private_keys/puppetmaster01.dev.dc01.uni.pem
+    SSLCertificateFile      /var/lib/puppet-server/ssl/certs/<%= puppetmaster %>.pem
+    SSLCertificateKeyFile   /var/lib/puppet-server/ssl/private_keys/<%= puppetmaster %>.pem
     SSLCertificateChainFile /var/lib/puppet-server/ssl/ca/ca_crt.pem
     SSLCACertificateFile    /var/lib/puppet-server/ssl/ca/ca_crt.pem
     # CRL checking should be enabled; if you have problems with Apache complaining about the CRL, disable the next line
