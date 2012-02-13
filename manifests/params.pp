@@ -77,7 +77,7 @@ class passenger::params (
       }
       'inuits-puppet-apache': {
         require apache::params
-        $conf_file = "${apache::params::confd}/passenger.conf"
+        $conf_file = "${apache::params::confd}/passenger-config.conf"
         $required_packages = [ $apache::params::package ]
         $notify_services = [ $apache::params::service_name ]
       }

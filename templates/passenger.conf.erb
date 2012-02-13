@@ -92,7 +92,3 @@
 <% if scope.lookupvar('passenger::params::debug_logfile') != '' -%>
   PassengerDebugLogFile <%= scope.lookupvar('passenger::params::debug_logfile') %>
 <% end -%>
-
-<% if scope.lookupvar('passenger::params::rails_autodetect') != '' -%>
-  RailsAutoDetect <%= onoff(scope.lookupvar('passenger::params::rails_autodetect')) %>
-<% end -%>
