@@ -11,27 +11,25 @@
 # === Sample Usage:
 #
 class passenger::packages {
-  package {
-    "rubygem-passenger": 
-      ensure => "$passenger::version",
-      name => passenger,
-      provider => gem,
-      require => $::operatingsystem ? {
-        default => Package["$apache::apache"],
-        archlinux => Package["apache"],
-        debian => Package["apache"],
-      },
-      before => Service["$apache::apache"];
 
-    'curl-devel':
-      ensure => installed,
-      name => $::operatingsystem ? {
-        archlinux => 'curl',
-        centos => 'libcurl-devel',
-        debian => 'libcurl4-openssl-dev',
-      };
+  # require apache
+  # require apache::params
 
-    'gcc':;
-    'gcc-c++':;
+  #@todo: backport old compatibility
+
+  require passenger::params
+
+  notify { "debug required_packages: ${passenger::params::required_packages}": }
+
+  package { $passenger::params::package:
+    ensure   => 'installed',
+    require  => Package[$passenger::params::required_packages],
   }
+
+  if $passenger::params::version != undef {
+    Package[$passenger::params::package] {
+      ensure => $passenger::params::version
+    }
+  }
+
 }

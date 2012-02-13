@@ -1,14 +1,15 @@
+class passenger {
 
-class passenger (
-	$version = '3.0.8'
-) {
-    class {
-		'::ruby':;
-		'passenger::packages':
-			require => Class['::ruby'];
-		'passenger::config':
-			require => Class['passenger::packages'];
-	}
+  include passenger::packages
+  #  include passenger::setup
 
-    Exec{path=>'/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin'}
+  #Class['passenger::packages'] -> Class['passenger::setup']
+
+
+  Exec { path => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin', }
+
+
+  $modulename = 'unifiedpost-passenger'
+  $moduleversion = '0.1'
+
 }
