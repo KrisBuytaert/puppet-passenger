@@ -70,9 +70,7 @@ class passenger::params (
   ## Apache integration
   if defined('::apache::module') {
     require apache::module
-    notify {'passenger-detect-apache-module':
-      message => "O Hi! I detected that you using a (pluggeable?) apache module (${apache::module::id}). Trying to work with it!"
-    }
+    debug("O Hi! I detected that you using a (pluggeable?) apache module (${apache::module::id}). Trying to work with it!")
     case $apache::module::id {
       default, undef: {
         fail("The selected module (${apache::module::id}) is not supported by this module.")
