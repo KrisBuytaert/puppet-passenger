@@ -69,17 +69,17 @@ class passenger::params (
 
   ## Apache integration
   if defined('::apache::module') {
-    require apache::module
-    debug("O Hi! I detected that you using a (pluggeable?) apache module (${apache::module::id}). Trying to work with it!")
-    case $apache::module::id {
+    require ::apache::module
+    debug("O Hi! I detected that you using a (pluggeable?) apache module (${::apache::module::id}). Trying to work with it!")
+    case $::apache::module::id {
       default, undef: {
-        fail("The selected module (${apache::module::id}) is not supported by this module.")
+        fail("The selected module (${::apache::module::id}) is not supported by this module.")
       }
       'inuits-puppet-apache': {
-        require apache::params
-        $conf_file = "${apache::params::confd}/passenger-config.conf"
-        $required_packages = [ $apache::params::package ]
-        $notify_services = [ $apache::params::service_name ]
+        require ::apache::params
+        $conf_file = "${::apache::params::confd}/passenger-config.conf"
+        $required_packages = [ $::apache::params::package ]
+        $notify_services = [ $::apache::params::service_name ]
       }
     }
 
