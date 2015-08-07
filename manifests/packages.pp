@@ -20,8 +20,8 @@ class passenger::packages {
   require passenger::params
 
   package { $passenger::params::package:
-    ensure   => 'installed',
-    require  => Package[$passenger::params::required_packages],
+    ensure  => 'installed',
+    require => Package[$passenger::params::required_packages],
   }
 
   if $passenger::params::version != undef {
